@@ -1,0 +1,42 @@
+<main class="main">
+  <ul>
+    <% list.forEach(function(item) { %>
+      <li>label: <%= item.label %></li>
+    <% }) %>
+  </ul>
+  <p><button onclick="getInfo()">获取信息</button></p>
+  <p><button onclick="exportFile()">请求：导出</button></p>
+  <p>
+    <a href="/export1?token=1234541000" target="_blank">a标签：导出</a>
+  </p>
+</main>
+
+<script>
+  function getInfo() {
+    fetch('/getInfo?id=111', {
+      headers: {
+        token: Date.now()
+      },
+    });
+  }
+
+  function exportFile() {
+    // axios.post('/export', {
+    //   a: 'a'
+    // }, {
+    //   headers: {
+    //     token: Date.now()
+    //   },
+    // })
+    fetch('/export', {
+      method: 'POST',
+      headers: {
+        token: Date.now(),
+        'Content-Type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify({
+        a: 'a'
+      })
+    })
+  }
+</script>

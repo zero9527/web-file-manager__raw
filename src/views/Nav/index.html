@@ -1,0 +1,31 @@
+
+<Nav id="nav">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <a href="/" class="<%= active === 'Home' ? 'active' : '' %>">Home</a>
+  <a href="/Galary" class="<%= active === 'Galary' ? 'active' : '' %>">Galary</a>
+  <hr />
+</Nav>
+
+<script>
+  axios.interceptors.response.use(function(response) {
+    console.log('response: ', response);
+    return response.data;
+  })
+</script>
+
+<style>
+  .main {
+    padding: 8px;
+    border: 1px #ccc solid;
+  }
+  a {
+    text-decoration: none;
+  }
+  a.active {
+    padding: 0 4px;
+    color: black;
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+</style>

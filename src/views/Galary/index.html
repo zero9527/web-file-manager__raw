@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+</head>
+<body>
+  <%- include("../Nav/index.html", { active: title }) %>
+  <div>
+    <input type="file" id="file" multiple />
+    <p>
+      <button onclick="upload()">上传</button>
+    </p>
+    <p id="loading" style="display: none;">loading...</p>
+  </div>
+  <%- include("./Galary.html") %>
+  <script>
+    // 上传
+    async function upload() {
+      const file = document.getElementById('file');
+      const formData = new FormData();
+      Array.from(file.files).forEach(item => formData.append('file', item));
+
+      setLoading(true);
+      const res = await axios.post('/upload', formData);
+      console.log(res)
+      if (res?.code === 0) {
+        console.log('上传成功！');
+      } else {
+        alert(res?.msg || '上传失败！');
+      }
+      setLoading(false);
+    }
+
+    function setLoading(value) {
+      const el = document.getElementById('loading');
+      el.style.display = value ? 'block' : 'none';
+    }
+  </script>
+</body>
+</html>
